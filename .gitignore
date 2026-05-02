@@ -4,6 +4,10 @@ node_modules
 # Build output
 dist
 *.tsbuildinfo
+packages/cli/test/**/*.js
+packages/cli/test/**/*.js.map
+packages/cli/test/**/*.d.ts
+packages/cli/test/**/*.d.ts.map
 
 # Test coverage
 coverage
