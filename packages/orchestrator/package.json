@@ -1,0 +1,31 @@
+{
+  "name": "@looping-agent/orchestrator",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsc -b",
+    "typecheck": "tsc -b --noEmit",
+    "lint": "eslint src",
+    "test": "vitest run --passWithNoTests"
+  },
+  "dependencies": {
+    "@looping-agent/mcp-server": "0.0.0",
+    "@looping-agent/schemas": "0.0.0",
+    "@agentclientprotocol/sdk": "^0.21.0"
+  }
+}

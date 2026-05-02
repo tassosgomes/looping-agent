@@ -1,0 +1,9 @@
+test/
+**/test/
+**/fixtures/
+coverage/
+**/coverage/
+src/
+**/*.test.ts
+*.tsbuildinfo
+**/*.tsbuildinfo

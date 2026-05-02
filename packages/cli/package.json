@@ -1,0 +1,44 @@
+{
+  "name": "@looping-agent/cli",
+  "version": "0.0.0",
+  "type": "module",
+  "files": [
+    "dist",
+    "bin"
+  ],
+  "bin": {
+    "looping-agent": "./dist/index.js"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsc -b && npm run bundle",
+    "bundle": "node ./scripts/bundle.mjs",
+    "typecheck": "tsc -b --noEmit",
+    "lint": "eslint src",
+    "test": "vitest run --passWithNoTests"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "@agentclientprotocol/sdk": "^0.21.0",
+    "commander": "^14.0.3",
+    "ora": "^8.2.0",
+    "picocolors": "^1.1.1",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@looping-agent/mcp-server": "0.0.0",
+    "@looping-agent/orchestrator": "0.0.0",
+    "@looping-agent/schemas": "0.0.0",
+    "esbuild": "^0.25.11"
+  }
+}
