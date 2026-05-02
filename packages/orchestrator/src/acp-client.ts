@@ -475,7 +475,7 @@ function buildRuntimeArgs(
       "-c", `mcp_servers.${key}.command=${tomlString(mcpServer.command)}`,
       "-c", `mcp_servers.${key}.args=${tomlStringArray(mcpServer.args)}`
     );
-    if (mcpServer.env && mcpServer.env.length > 0) {
+    if (mcpServer.env.length > 0) {
       args.push("-c", `mcp_servers.${key}.env=${tomlInlineTable(envArrayToRecord(mcpServer.env))}`);
     }
   }
@@ -520,11 +520,7 @@ function toCopilotServerKey(name: string): string {
   return name.replace(/[^a-zA-Z0-9_]/g, "_");
 }
 
-function envArrayToRecord(env: { name: string; value: string }[] | undefined): Record<string, string> {
-  if (!env) {
-    return {};
-  }
-
+function envArrayToRecord(env: readonly { name: string; value: string }[]): Record<string, string> {
   const record: Record<string, string> = {};
   for (const entry of env) {
     record[entry.name] = entry.value;

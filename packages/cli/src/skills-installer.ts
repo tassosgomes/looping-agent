@@ -252,23 +252,23 @@ async function ensureClaudeSkillsCompat(projectDir: string, skillsInstallDir: st
   await symlink(desiredTarget, claudeSkillsDir, "dir");
 }
 
-interface PathEntry {
-  type: "directory" | "symlink" | "other";
-  target: string | null;
-}
+type PathEntry =
+  | { type: "directory" }
+  | { type: "symlink"; target: string }
+  | { type: "other" };
 
 async function readPathEntry(targetPath: string): Promise<PathEntry | null> {
   try {
     const details = await lstat(targetPath);
     if (details.isDirectory()) {
-      return { type: "directory", target: null };
+      return { type: "directory" };
     }
 
     if (details.isSymbolicLink()) {
       return { type: "symlink", target: await readlink(targetPath) };
     }
 
-    return { type: "other", target: null };
+    return { type: "other" };
   } catch (error) {
     if (error instanceof Error && "code" in error && error.code === "ENOENT") {
       return null;
@@ -282,11 +282,7 @@ function relativeLinkTarget(fromDir: string, toPath: string): string {
   return path.relative(fromDir, toPath) || ".";
 }
 
-function resolveLinkTarget(fromDir: string, target: string | null): string {
-  if (!target) {
-    return "";
-  }
-
+function resolveLinkTarget(fromDir: string, target: string): string {
   return normalizePath(path.resolve(fromDir, target));
 }
 
