@@ -1,12 +1,15 @@
 import { lstat, mkdir, mkdtemp, readFile, readlink, readdir, writeFile } from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 
 import { describe, expect, it } from "vitest";
 
 import { installAll, readState, EXPECTED_SKILLS } from "../src/index.js";
 
-const WORKSPACE_ROOT = "/home/tsgomes/looping-agent";
+// Resolve relative to this file so the tests work on any machine and on CI.
+// File location: packages/cli/test/skills-installer.test.ts → up 3 = repo root.
+const WORKSPACE_ROOT = fileURLToPath(new URL("../../../", import.meta.url));
 const SOURCE_SKILLS_DIR = path.join(WORKSPACE_ROOT, "skills");
 
 describe("skills-installer", () => {

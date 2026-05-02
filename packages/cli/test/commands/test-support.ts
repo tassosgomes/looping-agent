@@ -1,13 +1,16 @@
 import { mkdtemp } from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 
 import type { DetectedRuntime } from "@looping-agent/orchestrator";
 
 import { installAll } from "../../src/skills-installer.js";
 import type { OutputStream } from "../../src/commands/shared.js";
 
-export const WORKSPACE_ROOT = "/home/tsgomes/looping-agent";
+// Resolve relative to this file so the tests work on any machine and on CI.
+// File location: packages/cli/test/commands/test-support.ts → up 4 = repo root.
+export const WORKSPACE_ROOT = fileURLToPath(new URL("../../../../", import.meta.url));
 export const SOURCE_SKILLS_DIR = path.join(WORKSPACE_ROOT, "skills");
 
 export const MOCK_RUNTIME: DetectedRuntime = {
